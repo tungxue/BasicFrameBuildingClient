@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="xmlBeansMarshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller" />
+
+	<bean id="messageFactory"
+		class="org.springframework.ws.soap.axiom.AxiomSoapMessageFactory">
+		<property name="payloadCaching" value="true" />
+	</bean>
+
+	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<constructor-arg ref="messageFactory" />
+		<property name="marshaller" ref="xmlBeansMarshaller" />
+		<property name="unmarshaller" ref="xmlBeansMarshaller" />
+		<property name="messageSender">
+			<bean
+				class="org.springframework.ws.transport.http.CommonsHttpMessageSender">
+				<property name="readTimeout" value="0" />
+			</bean>
+		</property>
+		<property name="defaultUri"
+			value="http://localhost:8080/BasicFrameBuilding/holidayService/holiday" />
+	</bean>
+
+	<bean id="holidayClient" class="com.mycompany.hr.client.HolidayClient">
+		<property name="defaultUri"
+			value="http://localhost:8080/BasicFrameBuilding/holidayService/holiday" />
+		<property name="request" value="holidayRequest.xml" />
+	</bean>
+</beans>
