@@ -43,7 +43,8 @@ public class HolidayClient {
 			StringResult result = new StringResult();
 			webServiceTemplate.sendSourceAndReceiveToResult(requestSource,
 					result);
-			System.out.println(result);
+			// 由于服务端没有返回，所以此处没有返回
+			System.out.println("tungxue" + result);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

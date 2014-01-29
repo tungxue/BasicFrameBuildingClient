@@ -4,7 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="xmlBeansMarshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller" />
-
+	<!-- In addition to a message sender, the WebServiceTemplate requires a 
+		Web service message factory. There are two message factories for SOAP: SaajSoapMessageFactory 
+		and AxiomSoapMessageFactory. If no message factory is specified (via the 
+		messageFactory property), Spring-WS will use the SaajSoapMessageFactory by 
+		default. -->
 	<bean id="messageFactory"
 		class="org.springframework.ws.soap.axiom.AxiomSoapMessageFactory">
 		<property name="payloadCaching" value="true" />
@@ -27,6 +31,6 @@
 	<bean id="holidayClient" class="com.mycompany.hr.client.HolidayClient">
 		<property name="defaultUri"
 			value="http://localhost:8080/BasicFrameBuilding/holidayService/holiday" />
-		<property name="request" value="holidayRequest.xml" />
+		<property name="request" value="classpath:com/mycompany/hr/client/holidayRequest.xml" />
 	</bean>
 </beans>
